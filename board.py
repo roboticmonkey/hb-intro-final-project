@@ -19,9 +19,15 @@ class Board(object):
 		
 		
 	#draws board one row at a time
-	def draw_board_loop(moves):
-		for row in moves:
+	def draw_board_loop(matrix_board):
+		for row in matrix_board:
 			#print row
 			#print len(item)
 			print " %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % tuple(row)
 			print "---------------------------------------------"
+
+player_board = Board()
+print player_board
+#player_board.draw_board_loop(player_board.board)
+print player_board.board
+print player_board.capital_letters
