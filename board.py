@@ -18,7 +18,7 @@ class Board(object):
 
 		
 		
-	#draws board one row at a time
+	#draws board one row at a time.
 	def draw_board_loop(self,matrix_board):
 		for row in matrix_board:
 			#print row
