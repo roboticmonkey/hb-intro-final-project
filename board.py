@@ -26,8 +26,6 @@ class Board(object):
 			print " %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % tuple(row)
 			print "---------------------------------------------"
 
-player_board = Board()
-print player_board
+#player_board = Board()
+
 #player_board.draw_board_loop(player_board.board)
-print player_board.board
-print player_board.capital_letters
