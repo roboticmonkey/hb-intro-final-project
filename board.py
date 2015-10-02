@@ -2,20 +2,26 @@ class Board(object):
 	"""Class creates a 10x10 game board with labels.
 
 	"""
-	
+
 	def __init__(self):
 		#list of capital letters
-		capital_letters = [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+		self.capital_letters = [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
 		#start of board matrix
-		board = [[" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]]
+		self.board = [[" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]]
 
 		#for loop to create rest of the board
-		for i in range(1,len(capital_letters)):
-			temp = [capital_letters[i]]
+		for i in range(1,len(self.capital_letters)):
+			temp = [self.capital_letters[i]]
 			temp.extend(10 * " ")
-			board.append(temp)
+			self.board.append(temp)
 
 		
 		
-		
+	#draws board one row at a time
+	def draw_board_loop(moves):
+		for row in moves:
+			#print row
+			#print len(item)
+			print " %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % tuple(row)
+			print "---------------------------------------------"
