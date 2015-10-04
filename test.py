@@ -87,12 +87,12 @@ def draw_board_loop(moves):
 print draw_board_loop(board)
 
 
-ships = {"Carrier": ["5","5","5","5","5"]}
-print ships
-print ships["Carrier"]
-print ships["Carrier"][2]
-ships["Carrier"][2] = "X"
-print ships["Carrier"]
+# ships = {"Carrier": ["5","5","5","5","5"], "Sub": ["2","2"]}
+# print ships
+# print ships["Carrier"]
+# print ships["Carrier"][2]
+# ships["Carrier"][2] = "X"
+# print ships["Carrier"]
 
 #print draw_board2(board)
 #draw_board2(matrix)
@@ -101,3 +101,92 @@ print ships["Carrier"]
 #print " "
 #matrix2[4][3] = "X"
 #draw_board2(matrix2)
+
+
+
+# raw_data = "    h5     "
+# print len(raw_data)
+# print raw_data
+# raw_data = raw_data.strip(" ")
+# print raw_data
+# print len(raw_data)
+# raw_data = raw_data.upper()
+# print raw_data
+
+raw_data = raw_input("Give a coordinate.")
+raw_data = raw_data.upper()
+if (len(raw_data) != 2):
+	raw_data = raw_data.strip(" ")
+
+if (len(raw_data) != 2):
+	print "Please enter coordinates in format 'A1'."
+	raw_data = raw_input("Give a coordinate. ")
+
+
+# carrier = ship.Ship(5, "Carrier")
+# print carrier
+# print carrier.sunk
+# print carrier.end_location
+# print type(carrier.size)
+# print carrier.boat
+# print type(carrier.boat[3])
+# print len(carrier.boat)
+
+#how to index the grid
+player_ship_grid.grid[1][10] = "5"
+player_ship_grid.grid[10][1] = "2"
+print "Player Ship Grid"
+player_ship_grid.draw_grid_loop(player_ship_grid.grid)
+
+player_bomb_grid.grid[4][7] = "x"
+player_bomb_grid.grid[7][4] = "o"
+print "Player Bomb Grid"
+player_bomb_grid.draw_grid_loop(player_bomb_grid.grid)
+
+
+# how to take bomb string and change the grid
+bomb = "H2"
+print bomb
+print bomb[0]
+print bomb[1]
+print player_bomb_grid.capital_letters
+for index in range(len(player_bomb_grid.capital_letters)):
+	if (bomb[0] == player_bomb_grid.capital_letters[index]):
+		print "letter is at index:", index
+		grid_letter_index = index
+grid_number_index = int(bomb[1])
+print "grid_letter_index:", grid_letter_index
+print "grid_number_index: ", grid_number_index
+print "grid_number_index is type:", type(grid_number_index)
+player_bomb_grid.grid[grid_letter_index][grid_number_index] = "X"
+player_bomb_grid.draw_grid_loop(player_bomb_grid.grid)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
