@@ -14,7 +14,7 @@ class Game_Pieces(ship.Ship):
 		self.battleship = ship.Ship(4, "Battleship")
 		self.cruiser = ship.Ship(3, "Cruiser")
 		self.sub = ship.Ship(3, "Submarine")
-		self.destroyer = ship.Ship(3, "Destroyer")
+		self.destroyer = ship.Ship(2, "Destroyer")
 		self.fleet_sunk = False
 
 	#changes Game_Pieces attribute fleet_sunk to True
@@ -29,6 +29,44 @@ class Game_Pieces(ship.Ship):
 		# 	print "i made it in the if statement"
 		# 	self.fleet_sunk = True
 		# 	print "try to set the self.fleet_sunk to true", self.fleet_sunk
+
+	#create grid location for all pieces
+	def create_ship_grid_locations(self, grid):
+		#carrier
+		self.carrier.create_grid_start_loc(grid)
+		self.carrier.create_grid_end_loc(grid)
+		self.carrier.create_grid_loc_list()
+
+		#battleship
+		self.battleship.create_grid_start_loc(grid)
+		self.battleship.create_grid_end_loc(grid)
+		self.battleship.create_grid_loc_list()
+
+		#cruiser
+		self.cruiser.create_grid_start_loc(grid)
+		self.cruiser.create_grid_end_loc(grid)
+		self.cruiser.create_grid_loc_list()
+
+		#submarine
+		self.sub.create_grid_start_loc(grid)
+		self.sub.create_grid_end_loc(grid)
+		self.sub.create_grid_loc_list()
+
+		#destroyer
+		self.destroyer.create_grid_start_loc(grid)
+		self.destroyer.create_grid_end_loc(grid)
+		self.destroyer.create_grid_loc_list()
+		
+
+
+
+
+
+
+
+
+
+
 
 
 
