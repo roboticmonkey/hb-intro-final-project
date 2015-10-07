@@ -28,22 +28,17 @@ class Board(object):
 
 
 	#edit one cell in grid
-	def update_one_cell(self, grid, location, bomb):
+	def update_one_cell(self, location, bomb):
 		self.grid[location[0]][location[1]] = bomb
 
-	#edit grid with ships horizontal
-	def update_grid_ship_hor(self, grid, ship):
-		i = 0
-		while i < ship.size:
-			grid[ship.grid_loc_start[0]][ship.grid_loc_start[1] +i] = ship.boat[i]
+	#edits grid with ship placement
+	def update_grid_ship(self, ship):
+		i = 0 
+		for item in ship.grid_loc_list:
+			self.grid[item[0]][item[1]] = ship.boat[i]
 			i += 1
 
-	#edit grid with ships vertical
-	def update_grid_ship_vert(self, grid, ship):
-		i = 0
-		while i < ship.size:
-			grid[ship.grid_loc_start[0] +i ][ship.grid_loc_start[1]] = ship.boat[i]
-			i += 1
+
 
 # print "Player Ship Grid"
 # player_ship_grid.draw_grid_loop(player_ship_grid.grid)
