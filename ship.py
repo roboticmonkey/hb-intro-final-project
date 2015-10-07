@@ -15,6 +15,7 @@ class Ship(object):
 		self.grid_loc_end = []
 		self.sunk = False
 		self.boat = [str(self.size) for x in range(size)]
+		self.grid_loc_list = []
 
 	#checks to see if ship is sunk. Returns TRUE when sunk. 
 	def is_sunk(self, boat):
@@ -41,7 +42,7 @@ class Ship(object):
 		#finds index of a letter on grid 
 		for index in range(len(board_object.capital_letters)):
 			if (location_string[0] == board_object.capital_letters[index]):
-				#print "letter is at index:", index
+				
 				return index
 	#convert string number to int
 	def convert_loc_str_index(self,location_string):
@@ -49,16 +50,71 @@ class Ship(object):
 		index = int(location_string[1])
 		return index
 
+	#create grid start locations
+	def create_grid_start_loc(self, grid):
+		self.grid_loc_start = [
+			self.convert_loc_letter_index(grid, self.start_location),
+			self.convert_loc_str_index(self.start_location)]
 	
+	#create grid end location
+	def create_grid_end_loc(self, grid):
+		self.grid_loc_end = [
+			self.convert_loc_letter_index(grid, self.end_location),
+			self.convert_loc_str_index(self.end_location)]
+
+
+	#check if horizontal after grid_loc_start and grid_loc_end defined
+	def is_horizontal(self):
+		if (self.grid_loc_start[0] == self.grid_loc_end[0]):
+			return True
+		else:
+			return False
+
+	#check if vertical
+	def is_vertical(self):
+		if (self.grid_loc_start[1] == self.grid_loc_end[1]):
+			return True
+		else:
+			return False 
+
+	#creates list for grid placement
+	def create_grid_loc_list(self):
+	 	if (self.is_horizontal()):
+	 		i = 0
+	 		while i < self.size:
+				temp = [self.grid_loc_start[0], self.grid_loc_start[1]+i]
+				self.grid_loc_list.append(temp)
+				i += 1
+		elif (self.is_vertical()):
+			i = 0
+			while i < self.size:
+				temp = [self.grid_loc_start[0] +i,self.grid_loc_start[1]]
+				self.grid_loc_list.append(temp)
+				i += 1
+		else:
+			return False
+
+		
+			
+			
+
+
+
 
 
 
 
 
 # sub = Ship(3, "Submarine")
-# sub.ship_location_start("D2")
-# sub.ship_location_end("D5")
+# sub.ship_location_start("D1")
+# sub.ship_location_end("F1")
 # print sub.start_location, sub.end_location
+# sub.grid_loc_start = [4,1]
+# print sub.grid_loc_start
+# sub.grid_loc_end = [6,1]
+# print sub.grid_loc_end
+# sub.create_grid_loc_list()
+# print sub.grid_loc_list
 
 # class Game_Pieces(Ship):
 
