@@ -38,6 +38,32 @@ class Board(object):
 			self.grid[item[0]][item[1]] = ship.boat[i]
 			i += 1
 
+	#update grid with all ship changes
+	def update_grid_game_pieces(self, game_pieces):
+		self.update_grid_ship(game_pieces.carrier)
+		self.update_grid_ship(game_pieces.battleship)
+		self.update_grid_ship(game_pieces.sub)
+		self.update_grid_ship(game_pieces.cruiser)
+		self.update_grid_ship(game_pieces.destroyer)
+
+	#converts first letter of location string to and index
+	def convert_loc_letter_index(self, location_string):
+		#finds index of a letter on grid 
+		for index in range(len(self.capital_letters)):
+			if (location_string[0] == self.capital_letters[index]):
+				
+				return index
+	#convert string number to int
+	def convert_loc_str_index(self,location_string):
+		#print location_string
+		index = int(location_string[1])
+		return index
+
+	#updates grid with a miss
+	def record_miss(self, bomb_location):
+		self.grid[bomb_location[0]][bomb_location[1]] = "O"
+	
+
 
 
 # print "Player Ship Grid"
