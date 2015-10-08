@@ -16,6 +16,7 @@ class Game_Pieces(ship.Ship):
 		self.sub = ship.Ship(3, "Submarine")
 		self.destroyer = ship.Ship(2, "Destroyer")
 		self.fleet_sunk = False
+		self.all_ships = {}
 
 	#changes Game_Pieces attribute fleet_sunk to True
 	def all_sunk(self):
@@ -23,12 +24,7 @@ class Game_Pieces(ship.Ship):
 			 (self.cruiser.sunk == True and (self.sub.sunk == True and 
 			 	self.destroyer.sunk == True)))):
 			self.fleet_sunk = True
-		# print "im in a method about to do some shit"
-		# print "self.carrier.sunk: ", self.carrier.sunk
-		# if (self.carrier.sunk == True):
-		# 	print "i made it in the if statement"
-		# 	self.fleet_sunk = True
-		# 	print "try to set the self.fleet_sunk to true", self.fleet_sunk
+		
 
 	#create grid location for all pieces
 	def create_ship_grid_locations(self, grid):
@@ -36,26 +32,50 @@ class Game_Pieces(ship.Ship):
 		self.carrier.create_grid_start_loc(grid)
 		self.carrier.create_grid_end_loc(grid)
 		self.carrier.create_grid_loc_list()
+		self.all_ships[self.carrier] = self.carrier.grid_loc_list
+		
 
 		#battleship
 		self.battleship.create_grid_start_loc(grid)
 		self.battleship.create_grid_end_loc(grid)
 		self.battleship.create_grid_loc_list()
+		self.all_ships[self.battleship.ship_name] = self.battleship.grid_loc_list
 
 		#cruiser
 		self.cruiser.create_grid_start_loc(grid)
 		self.cruiser.create_grid_end_loc(grid)
 		self.cruiser.create_grid_loc_list()
+		self.all_ships[self.cruiser.ship_name] = self.cruiser.grid_loc_list
 
 		#submarine
 		self.sub.create_grid_start_loc(grid)
 		self.sub.create_grid_end_loc(grid)
 		self.sub.create_grid_loc_list()
+		self.all_ships[self.sub.ship_name] = self.sub.grid_loc_list
 
 		#destroyer
 		self.destroyer.create_grid_start_loc(grid)
 		self.destroyer.create_grid_end_loc(grid)
 		self.destroyer.create_grid_loc_list()
+		self.all_ships[self.destroyer.ship_name] = self.destroyer.grid_loc_list
+
+	#checks all ships for hit
+	def check_for_hit(self, bomb_location):
+		if self.carrier.is_hit(bomb_location):
+			return self.carrier
+		elif self.battleship.is_hit(bomb_location):
+			return self.battleship
+		elif self.cruiser.is_hit(bomb_location):
+			return self.cruiser
+		elif self.sub.is_hit(bomb_location):
+			return self.sub
+		elif self.destroyer.is_hit(bomb_location):
+			return self.destroyer
+		else:
+			return False
+
+
+
 		
 
 
