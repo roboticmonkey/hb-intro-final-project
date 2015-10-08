@@ -18,16 +18,33 @@ class Ship(object):
 		self.grid_loc_list = []
 
 	#checks to see if ship is sunk. Returns TRUE when sunk. 
-	def is_sunk(self, boat):
-		pass
+	def is_sunk(self):
+		winning_lists = [["X","X","X","X","X"], ["X","X","X","X"], ["X","X","X"], ["X","X"]]
+		for i in range(len(winning_lists)):
+			if (self.boat == winning_lists[i]):
+				return True
+							
+		return False
+
+	
 
 	#checks if bomb hit ship. returns TRUE is hit, FALSE if missed.
-	def is_hit(self, ship_location, bomb_location):
-		pass
+	def is_hit(self, bomb_location):
+		# for i in range(len(self.grid_loc_list)):
+		# 	if (bomb_location == self.grid_loc_list[i]):
+		if (bomb_location in self.grid_loc_list):
+			return True
+		else:
+			return False
+		
 
 	#changes boat list to reflect where a bomb hit it. 
-	def record_ship_hit(self, boat, bomb_location):
-		pass
+	def record_ship_hit(self, bomb_location):
+		for i in range(len(self.grid_loc_list)):
+			if (bomb_location == self.grid_loc_list[i]):
+				self.boat[i] = "X"
+				print self.ship_name
+
 
 	#adds ship start location
 	def ship_location_start(self, start_location):
@@ -37,31 +54,17 @@ class Ship(object):
 	def ship_location_end(self, end_location):
 		self.end_location = end_location
 
-	#converts the computer index for human letter coordinates
-	def convert_loc_letter_index(self, board_object, location_string):
-		#finds index of a letter on grid 
-		for index in range(len(board_object.capital_letters)):
-			if (location_string[0] == board_object.capital_letters[index]):
-				
-				return index
-	#convert string number to int
-	def convert_loc_str_index(self,location_string):
-		#print location_string
-		index = int(location_string[1])
-		return index
 
-	#create grid start locations
 	def create_grid_start_loc(self, grid):
 		self.grid_loc_start = [
-			self.convert_loc_letter_index(grid, self.start_location),
-			self.convert_loc_str_index(self.start_location)]
+			grid.convert_loc_letter_index(self.start_location),
+			grid.convert_loc_str_index(self.start_location)]
 	
 	#create grid end location
 	def create_grid_end_loc(self, grid):
 		self.grid_loc_end = [
-			self.convert_loc_letter_index(grid, self.end_location),
-			self.convert_loc_str_index(self.end_location)]
-
+			grid.convert_loc_letter_index(self.end_location),
+			grid.convert_loc_str_index(self.end_location)]
 
 	#check if horizontal after grid_loc_start and grid_loc_end defined
 	def is_horizontal(self):
