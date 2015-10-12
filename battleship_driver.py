@@ -30,8 +30,25 @@ computer.sub.end_location = "B3"
 
 computer.destroyer.start_location ="E4"
 computer.destroyer.end_location = "F4"
-#creating the gird locations
-computer.create_ship_grid_locations(player_ship_grid)
+#creating the grid locations
+
+if (computer.carrier.create_grid_loc_list(player_ship_grid) == True):
+	# print "list made man"
+	computer.add_ship_loc_dict(computer.carrier)
+	# print computer.all_ships
+else:
+	print "whoops"
+
+
+computer.battleship.create_grid_loc_list(player_ship_grid)
+computer.add_ship_loc_dict(computer.battleship)
+computer.cruiser.create_grid_loc_list(player_ship_grid)
+computer.add_ship_loc_dict(computer.cruiser)
+computer.sub.create_grid_loc_list(player_ship_grid)
+computer.add_ship_loc_dict(computer.sub)
+computer.destroyer.create_grid_loc_list(player_ship_grid)
+computer.add_ship_loc_dict(computer.destroyer)
+# print computer.all_ships
 
 #updateing the ship board
 player_ship_grid.update_grid_ship(computer.carrier)
@@ -40,76 +57,76 @@ player_ship_grid.update_grid_ship(computer.battleship)
 player_ship_grid.update_grid_ship(computer.sub)
 player_ship_grid.update_grid_ship(computer.cruiser)
 
-#printing an updated board
+# #printing an updated board
 print "Player Ship Grid"
 player_ship_grid.draw_grid_loop(player_ship_grid.grid)
 
-#working out finding bombs in ships
-bomb = [6,8]
-print "bomb:", bomb
+# #working out finding bombs in ships
+# bomb = [6,8]
+# print "bomb:", bomb
 
-# def test_funct (bomb, game_pieces):
-# 	for key, value in game_pieces.all_ships.items():
-# 		#print key, value
-# 		for i in range(len(value)):
-# 			if (bomb == value[i]):
-# 				print "ship hit:", key
-# 				print "bomb found index: ", i
-# 				print key.ship_name
-# 				return key, i
+# # def test_funct (bomb, game_pieces):
+# # 	for key, value in game_pieces.all_ships.items():
+# # 		#print key, value
+# # 		for i in range(len(value)):
+# # 			if (bomb == value[i]):
+# # 				print "ship hit:", key
+# # 				print "bomb found index: ", i
+# # 				print key.ship_name
+# # 				return key, i
 			
-# test_var = test_funct(bomb, computer)
+# # test_var = test_funct(bomb, computer)
 
-# print test_var
-# print test_var[0].boat
-# print test_var[0].boat[test_var[1]]
-# test_var[0].boat[test_var[1]] = "X"
-# print test_var[0].boat[test_var[1]]
-# print test_var[0].boat
+# # print test_var
+# # print test_var[0].boat
+# # print test_var[0].boat[test_var[1]]
+# # test_var[0].boat[test_var[1]] = "X"
+# # print test_var[0].boat[test_var[1]]
+# # print test_var[0].boat
 
-# print computer.carrier.boat
+# # print computer.carrier.boat
 
-# player_ship_grid.update_grid_ship(computer.carrier)
+# # player_ship_grid.update_grid_ship(computer.carrier)
+
+# # print "Player Ship Grid"
+# # player_ship_grid.draw_grid_loop(player_ship_grid.grid)
+
+# bomb2 = [5,4]
+# print "bomb2:", bomb2
+# bomb3 = [1,4]
+# print "bomb3:", bomb3
+
+ 
+# # checking bomb for hit and update
+# if (computer.check_for_hit(bomb) != False):
+# 	computer.check_for_hit(bomb).record_ship_hit(bomb)
+# else:
+# 	player_ship_grid.grid[bomb[0]][bomb[1]] = "O"
+# 	print "miss"
+
+# if (computer.check_for_hit(bomb2) != False):
+# 	computer.check_for_hit(bomb2).record_ship_hit(bomb2)
+# else:
+# 	player_ship_grid.grid[bomb2[0]][bomb2[1]] = "O"
+# 	print "miss"
+
+# if (computer.check_for_hit(bomb3) != False):
+# 	computer.check_for_hit(bomb3).record_ship_hit(bomb3)
+# else:
+# 	player_ship_grid.record_miss(bomb3)
+# 	print "miss"
+
+
+
+# player_ship_grid.update_grid_game_pieces(computer)
 
 # print "Player Ship Grid"
 # player_ship_grid.draw_grid_loop(player_ship_grid.grid)
 
-bomb2 = [5,4]
-print "bomb2:", bomb2
-bomb3 = [1,4]
-print "bomb3:", bomb3
-
- 
-# checking bomb for hit and update
-if (computer.check_for_hit(bomb) != False):
-	computer.check_for_hit(bomb).record_ship_hit(bomb)
-else:
-	player_ship_grid.grid[bomb[0]][bomb[1]] = "O"
-	print "miss"
-
-if (computer.check_for_hit(bomb2) != False):
-	computer.check_for_hit(bomb2).record_ship_hit(bomb2)
-else:
-	player_ship_grid.grid[bomb2[0]][bomb2[1]] = "O"
-	print "miss"
-
-if (computer.check_for_hit(bomb3) != False):
-	computer.check_for_hit(bomb3).record_ship_hit(bomb3)
-else:
-	player_ship_grid.record_miss(bomb3)
-	print "miss"
-
-
-
-player_ship_grid.update_grid_game_pieces(computer)
-
-print "Player Ship Grid"
-player_ship_grid.draw_grid_loop(player_ship_grid.grid)
-
-computer.destroyer.boat = ["X", "X"]
-print computer.destroyer.boat
-print computer.destroyer.is_sunk()
-print "sub sunk:", computer.sub.is_sunk()
+# computer.destroyer.boat = ["X", "X"]
+# print computer.destroyer.boat
+# print computer.destroyer.is_sunk()
+# print "sub sunk:", computer.sub.is_sunk()
 
 
 

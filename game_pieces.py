@@ -27,37 +27,34 @@ class Game_Pieces(ship.Ship):
 		
 
 	#create grid location for all pieces
-	def create_ship_grid_locations(self, grid):
+	def add_ship_loc_dict(self, ship):
 		#carrier
-		self.carrier.create_grid_start_loc(grid)
-		self.carrier.create_grid_end_loc(grid)
-		self.carrier.create_grid_loc_list()
-		self.all_ships[self.carrier] = self.carrier.grid_loc_list
+		self.all_ships[ship] = ship.grid_loc_list
 		
 
-		#battleship
-		self.battleship.create_grid_start_loc(grid)
-		self.battleship.create_grid_end_loc(grid)
-		self.battleship.create_grid_loc_list()
-		self.all_ships[self.battleship.ship_name] = self.battleship.grid_loc_list
+		# #battleship
+		# self.battleship.create_grid_start_loc(grid)
+		# self.battleship.create_grid_end_loc(grid)
+		# self.battleship.create_grid_loc_list()
+		# self.all_ships[self.battleship.ship_name] = self.battleship.grid_loc_list
 
-		#cruiser
-		self.cruiser.create_grid_start_loc(grid)
-		self.cruiser.create_grid_end_loc(grid)
-		self.cruiser.create_grid_loc_list()
-		self.all_ships[self.cruiser.ship_name] = self.cruiser.grid_loc_list
+		# #cruiser
+		# self.cruiser.create_grid_start_loc(grid)
+		# self.cruiser.create_grid_end_loc(grid)
+		# self.cruiser.create_grid_loc_list()
+		# self.all_ships[self.cruiser.ship_name] = self.cruiser.grid_loc_list
 
-		#submarine
-		self.sub.create_grid_start_loc(grid)
-		self.sub.create_grid_end_loc(grid)
-		self.sub.create_grid_loc_list()
-		self.all_ships[self.sub.ship_name] = self.sub.grid_loc_list
+		# #submarine
+		# self.sub.create_grid_start_loc(grid)
+		# self.sub.create_grid_end_loc(grid)
+		# self.sub.create_grid_loc_list()
+		# self.all_ships[self.sub.ship_name] = self.sub.grid_loc_list
 
-		#destroyer
-		self.destroyer.create_grid_start_loc(grid)
-		self.destroyer.create_grid_end_loc(grid)
-		self.destroyer.create_grid_loc_list()
-		self.all_ships[self.destroyer.ship_name] = self.destroyer.grid_loc_list
+		# #destroyer
+		# self.destroyer.create_grid_start_loc(grid)
+		# self.destroyer.create_grid_end_loc(grid)
+		# self.destroyer.create_grid_loc_list()
+		# self.all_ships[self.destroyer.ship_name] = self.destroyer.grid_loc_list
 
 	#checks all ships for hit
 	def check_for_hit(self, bomb_location):
@@ -73,7 +70,6 @@ class Game_Pieces(ship.Ship):
 			return self.destroyer
 		else:
 			return False
-
 
 
 		

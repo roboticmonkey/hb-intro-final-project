@@ -113,14 +113,14 @@ print draw_board_loop(board)
 # raw_data = raw_data.upper()
 # print raw_data
 
-raw_data = raw_input("Give a coordinate.")
-raw_data = raw_data.upper()
-if (len(raw_data) != 2):
-	raw_data = raw_data.strip(" ")
+# raw_data = raw_input("Give a coordinate.")
+# raw_data = raw_data.upper()
+# if (len(raw_data) != 2):
+# 	raw_data = raw_data.strip(" ")
 
-if (len(raw_data) != 2):
-	print "Please enter coordinates in format 'A1'."
-	raw_data = raw_input("Give a coordinate. ")
+# if (len(raw_data) != 2):
+# 	print "Please enter coordinates in format 'A1'."
+# 	raw_data = raw_input("Give a coordinate. ")
 
 
 # carrier = ship.Ship(5, "Carrier")

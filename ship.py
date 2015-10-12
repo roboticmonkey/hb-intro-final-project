@@ -55,16 +55,16 @@ class Ship(object):
 		self.end_location = end_location
 
 
-	def create_grid_start_loc(self, grid):
+	def create_grid_start_loc(self, board_object):
 		self.grid_loc_start = [
-			grid.convert_loc_letter_index(self.start_location),
-			grid.convert_loc_str_index(self.start_location)]
+			board_object.convert_loc_letter_index(self.start_location),
+			board_object.convert_loc_str_index(self.start_location)]
 	
 	#create grid end location
-	def create_grid_end_loc(self, grid):
+	def create_grid_end_loc(self, board_object):
 		self.grid_loc_end = [
-			grid.convert_loc_letter_index(self.end_location),
-			grid.convert_loc_str_index(self.end_location)]
+			board_object.convert_loc_letter_index(self.end_location),
+			board_object.convert_loc_str_index(self.end_location)]
 
 	#check if horizontal after grid_loc_start and grid_loc_end defined
 	def is_horizontal(self):
@@ -81,23 +81,32 @@ class Ship(object):
 			return False 
 
 	#creates list for grid placement
-	def create_grid_loc_list(self):
+	def create_grid_loc_list(self, grid):
+		# print self.ship_name
+		# print "in ship method to create list of lists"
+		self.create_grid_start_loc(grid)
+		# print "grid loc start:", self.grid_loc_start
+		self.create_grid_end_loc(grid)
+		# print "grid loc end:", self.grid_loc_end
+
 	 	if (self.is_horizontal()):
 	 		i = 0
 	 		while i < self.size:
 				temp = [self.grid_loc_start[0], self.grid_loc_start[1]+i]
 				self.grid_loc_list.append(temp)
 				i += 1
+			return True
 		elif (self.is_vertical()):
 			i = 0
 			while i < self.size:
 				temp = [self.grid_loc_start[0] +i,self.grid_loc_start[1]]
 				self.grid_loc_list.append(temp)
 				i += 1
+			return True
 		else:
 			return False
 
-		
+
 			
 			
 

@@ -56,13 +56,13 @@ class Board(object):
 	#convert string number to int
 	def convert_loc_str_index(self,location_string):
 		#print location_string
-		index = int(location_string[1])
+		index = int(location_string[1:])
 		return index
 
 	#updates grid with a miss
 	def record_miss(self, bomb_location):
 		self.grid[bomb_location[0]][bomb_location[1]] = "O"
-	
+
 
 
 
