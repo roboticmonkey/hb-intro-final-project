@@ -39,6 +39,15 @@ def valid_letter(user_input, board):
 	else:
 		return True
 
+#Validating coordinate format
+def validate_user_input(user_input, board):
+	if (valid_letter(user_input, board) and valid_number(user_input)):
+		return True
+	else:
+		return False
+		
+		
+
 # name ="  fred  "
 # name2 = "fart knuckles"
 # name3 = "jim"

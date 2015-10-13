@@ -5,7 +5,7 @@ class Ship(object):
 	lenght of boat LIST is equal to size. 
 	"""
 
-	def __init__(self, size, ship_name):
+	def __init__(self, ship_name, size):
 		super(Ship, self).__init__()
 		self.size = size
 		self.ship_name = ship_name
@@ -82,14 +82,15 @@ class Ship(object):
 
 	#creates list for grid placement
 	def create_grid_loc_list(self, grid):
+		# print "inside create grid loc list"
 		# print self.ship_name
-		# print "in ship method to create list of lists"
 		self.create_grid_start_loc(grid)
 		# print "grid loc start:", self.grid_loc_start
 		self.create_grid_end_loc(grid)
 		# print "grid loc end:", self.grid_loc_end
 
 	 	if (self.is_horizontal()):
+	 		# print "inside is_horizontal if statement"
 	 		i = 0
 	 		while i < self.size:
 				temp = [self.grid_loc_start[0], self.grid_loc_start[1]+i]
@@ -97,17 +98,30 @@ class Ship(object):
 				i += 1
 			return True
 		elif (self.is_vertical()):
+			# print "inside vertical if statement"
 			i = 0
 			while i < self.size:
 				temp = [self.grid_loc_start[0] +i,self.grid_loc_start[1]]
 				self.grid_loc_list.append(temp)
 				i += 1
+			# print "grid location list from inside method:", self.grid_loc_list
 			return True
 		else:
 			return False
 
+	#Erase start locations
+	def erase_start_locations(self):
+		self.start_location = ""
+		self.grid_loc_start = []
+	
+	#Erase end locations
+	def erase_end_locations(self):
+		self.end_location = ""
+		self.grid_loc_end = []	
 
-			
+	#Erase grid location list
+	def erase_grid_location_list(self):
+		self.grid_loc_list = []	
 			
 
 

@@ -7,14 +7,20 @@ class Game_Pieces(ship.Ship):
 	Methond all_sunk checks to see if all ships have been sunk.
 	 """
 	
-	def __init__(self, player_name):
+	def __init__(self, player_name, ship_tuple):
 		#super(Game_Pieces, self).__init__()
 		self.player_name = player_name
-		self.carrier = ship.Ship(5, "Carrier")
-		self.battleship = ship.Ship(4, "Battleship")
-		self.cruiser = ship.Ship(3, "Cruiser")
-		self.sub = ship.Ship(3, "Submarine")
-		self.destroyer = ship.Ship(2, "Destroyer")
+		self.carrier = ship.Ship(ship_tuple[0][0], ship_tuple[0][1])
+		self.battleship = ship.Ship(ship_tuple[1][0],ship_tuple[1][1])
+		self.cruiser = ship.Ship(ship_tuple[2][0], ship_tuple[2][1])
+		self.sub = ship.Ship(ship_tuple[3][0],ship_tuple[3][1])
+		self.destroyer = ship.Ship(ship_tuple[4][0],ship_tuple[4][1])
+		
+		# self.carrier = ship.Ship("Carrier", 5)
+		# self.battleship = ship.Ship("Battleship",4)
+		# self.cruiser = ship.Ship("Cruiser", 3)
+		# self.sub = ship.Ship("Submarine",3)
+		# self.destroyer = ship.Ship("Destroyer",2)
 		self.fleet_sunk = False
 		self.all_ships = {}
 
@@ -71,6 +77,32 @@ class Game_Pieces(ship.Ship):
 		else:
 			return False
 
+	#check to see if new ship has same location as already placed ships
+	def is_overlap(self, ship):
+		print "got into is_overlap method"
+		for key, value in self.all_ships.items():
+			print key.ship_name, value
+			for i in range(len(value)):
+				print "i:", i
+				print ship.ship_name, ship.grid_loc_list
+				for n in range(len(ship.grid_loc_list)):
+					print "n:", n, "i:", i
+					print ship.ship_name, ship.grid_loc_list[n], key.ship_name, value[i]
+					if (ship.grid_loc_list[n] == value[i]):
+						print ship.ship_name, ship.grid_loc_list[n]
+						print "matches:", key.ship_name, value[i], "at index:", i
+						return True
+					
+		return False
+
+	#check if ship already at location
+	def is_taken(self, ship_location):
+		for key, value in self.all_ships.items():
+			# print key, value, ship_location
+			for i in range(len(value)):
+				if (value[i] == ship_location):
+					return True
+		return False
 
 		
 

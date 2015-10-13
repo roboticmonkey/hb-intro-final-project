@@ -23,8 +23,8 @@ class Board(object):
 		for row in matrix_grid:
 			#print row
 			#print len(item)
-			print " %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % tuple(row)
-			print "---------------------------------------------"
+			print " %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s |" % tuple(row)
+			print "-------------------------------------------------------"
 
 
 	#edit one cell in grid

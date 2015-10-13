@@ -18,19 +18,32 @@ print "testing ship placement"
 #hardcoding ship locations
 computer.carrier.start_location ="D8"
 computer.carrier.end_location = "H8"
+computer.carrier.create_grid_start_loc(player_ship_grid)
+computer.carrier.create_grid_end_loc(player_ship_grid)
 
 computer.battleship.start_location = "I3"
 computer.battleship.end_location ="I6"
+computer.battleship.create_grid_start_loc(player_ship_grid)
+computer.battleship.create_grid_end_loc(player_ship_grid)
+
 
 computer.cruiser.start_location = "A7"
 computer.cruiser.end_location = "A9"
+computer.cruiser.create_grid_start_loc(player_ship_grid)
+computer.cruiser.create_grid_end_loc(player_ship_grid)
 
 computer.sub.start_location = "B1"
 computer.sub.end_location = "B3"
+computer.sub.create_grid_start_loc(player_ship_grid)
+computer.sub.create_grid_end_loc(player_ship_grid)
 
-computer.destroyer.start_location ="E4"
-computer.destroyer.end_location = "F4"
+computer.destroyer.start_location ="H4"
+computer.destroyer.end_location = "I4"
+computer.destroyer.create_grid_start_loc(player_ship_grid)
+computer.destroyer.create_grid_end_loc(player_ship_grid)
 #creating the grid locations
+
+
 
 if (computer.carrier.create_grid_loc_list(player_ship_grid) == True):
 	# print "list made man"
@@ -45,17 +58,36 @@ computer.add_ship_loc_dict(computer.battleship)
 computer.cruiser.create_grid_loc_list(player_ship_grid)
 computer.add_ship_loc_dict(computer.cruiser)
 computer.sub.create_grid_loc_list(player_ship_grid)
+
+print computer.sub.ship_name, "found overlap:", computer.is_overlap(computer.sub)
+
 computer.add_ship_loc_dict(computer.sub)
 computer.destroyer.create_grid_loc_list(player_ship_grid)
+
+# for key, value in computer.all_ships.items():
+# 	# print key, value
+# 	for i in range(len(value)):
+# 		for n in range(len(computer.destroyer.grid_loc_list)):
+# 			print "n:", n, "i:", i
+# 			print "destroyer:",computer.destroyer.grid_loc_list[n], key, value[i]
+# 			if (computer.destroyer.grid_loc_list[n] == value[i]):
+# 				print "destroyer:", computer.destroyer.grid_loc_list[n]
+# 				print "matches:", key.ship_name, value[i], "at index:", i
+
+print computer.destroyer.ship_name, "found overlap:", computer.is_overlap(computer.destroyer)
+
 computer.add_ship_loc_dict(computer.destroyer)
 # print computer.all_ships
 
+
+
+
 #updateing the ship board
 player_ship_grid.update_grid_ship(computer.carrier)
-player_ship_grid.update_grid_ship(computer.destroyer)
 player_ship_grid.update_grid_ship(computer.battleship)
-player_ship_grid.update_grid_ship(computer.sub)
 player_ship_grid.update_grid_ship(computer.cruiser)
+player_ship_grid.update_grid_ship(computer.sub)
+player_ship_grid.update_grid_ship(computer.destroyer)
 
 # #printing an updated board
 print "Player Ship Grid"
