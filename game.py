@@ -93,18 +93,12 @@ computer.print_my_ships_board()
 # Ask for string bomb location
 print "Use letters A-J and numbers 1-10 for coordinates in the format 'A1'."
 print "Place a bomb."
-raw_data = raw_input("Enter coordinates for a bomb. ")
-raw_data = utilities.quick_fix(raw_data)
-# print raw_data
 
-# Validate string bomb location
-# If invalid ask for string bomb location again
-raw_data = utilities.request_valid_location(raw_data, player1.my_ships_board)
 
-# print raw_data
+#save valid bomb location str
+player1.bomb_str = utilities.get_bomb_str(player1.my_ships_board)
 
-# If valid save string
-player1.bomb_str = raw_data
+#print player1.bomb_str
 
 # Convert string location to a grid location
 player1.create_bomb_grid(player1.enemy_ships_board)
@@ -116,11 +110,12 @@ if(player1.in_bombs_placed()):
 # 	If TRUE, 
 	# Print ERROR MSG: already used pick new location
 	print "Already bombed that spot."
-
+	print "Pick a new location."
 	# CODE ASK FOR NEW LOCATION
 	
-	print "Pick a new location."
-
+	utilities.get_bomb_str(player1.my_ships_board)
+	
+	# NEED TO CREATE A LOOP FOR THIS SECTION
 
 else:
 	# If FALSE in bomb_list,
@@ -130,23 +125,10 @@ else:
 	if(computer.ships.check_for_hit(player1.bomb_grid) == False):
 	# If MISS
 		#print "got false"
-		
-		# Save bomb location to bomb_list
-		player1.add_bombs()
-		# print player1.bombs_placed
-		
-		# Update player enemy ship board with MISS
-		player1.enemy_ships_board.update_one_cell(player1.bomb_grid, player1.bomb[0])
-		
-		# Update opponents  my ship board with MISS
-		computer.my_ships_board.update_one_cell(player1.bomb_grid, player1.bomb[0])
-		
-		# Print MSG bomb missed
-		print player1.bomb_str, "bomb missed."
 
-		#DELETE bomb variables
-		player1.erase_bomb_locations()
-		
+		# Handles all steps for when bomb misses ships
+		player1.handle_bomb_miss(computer)
+
 		# print "varify that bomb locations are empty again"
 		# print player1.bomb_str
 		# print player1.bomb_grid
@@ -161,27 +143,16 @@ else:
 		
 		# NEXT PLAYERS TURN
 
-
 	else:
 	# If HIT
 		# print computer.ships.check_for_hit(player1.bomb_grid).ship_name
+		
+		# Save ship object that was hit
 		ship_hit = computer.ships.check_for_hit(player1.bomb_grid)
 		
-		# Save bomb location to bomb_list
-		player1.add_bombs()
-		
-		# Update enemy hit ship with HIT at bomb location
-		ship_hit.record_ship_hit(player1.bomb_grid, player1.bomb[1])
-		
-		# Print MSG that a ship was HIT
-		print "You hit one of %s's ships." %(computer.name)
-		
-		# 	Update player enemy ship board with HIT
-		player1.enemy_ships_board.update_one_cell(player1.bomb_grid, player1.bomb[1])
-		
-		# Update opponents  my ship board with HIT
-		computer.my_ships_board.update_grid_game_pieces(computer.ships)
-		
+		# Handles all steps for when bomb hits a ship
+		player1.handle_bomb_hit(computer)
+
 		#Print updated enemy ship board
 		print player1.name
 		player1.print_enemy_ships_board()
@@ -190,23 +161,23 @@ else:
 		print computer.name
 		computer.print_my_ships_board()
 
-		# Check if opponents ship sunk
-
+		# Test code for ship being sunk
 		ship_hit.boat = ["X","X","X","X","X"]
-		print ship_hit.boat
-		if(not ship_hit.is_sunk()):
-		# If FALSE
+		# print ship_hit.boat
 
+		# Check if opponents ship sunk
+		if(not ship_hit.is_sunk()):
+		# Ship not sunk
 			# Print MSG no ship sunk
 			print "No ship sunk."
 
 			# 	NEXT PLAYERS TURN
 		else:
-		# If TRUE
+		# Ship sunk
 			# Print MSG that opponents ship sunk, Give name of sunk ship
-			print "%s's %s ship sunk." %(computer.name, ship_hit.ship_name)
+			computer.msg_ship_sunk(ship_hit)
 
-
+			# Test code for testing all ships sunk
 			computer.ships.battleship.boat = ["X","X","X","X"] 
 			computer.ships.cruiser.boat = ["X","X","X"]
 			computer.ships.sub.boat = ["X","X","X"]
@@ -226,14 +197,7 @@ else:
 				# 	NEXT PLAYERS TURN
 			else:
 			# If TRUE
-
-				# Print MSG congrats MSG to winner
-				print "Congratulations %s," %(player1.name)
-				# Print MSG the all of opponents ships are sunk
-				print "All of %s ships have been sunk!" %(computer.name)
-
-				# Print MSG that game is over
-				print "GAME OVER!"
+				player1.game_over_msg(computer)
 
 				# GAME OVER 
 
