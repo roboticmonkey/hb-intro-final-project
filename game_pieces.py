@@ -30,6 +30,7 @@ class Game_Pieces(ship.Ship):
 
 	#changes Game_Pieces attribute fleet_sunk to True
 	def all_sunk(self):
+		# print "in games pieces all_sunk"
 		if (self.carrier.sunk == True and (self.battleship.sunk == True and
 			 (self.cruiser.sunk == True and (self.sub.sunk == True and 
 			 	self.destroyer.sunk == True)))):
@@ -42,7 +43,7 @@ class Game_Pieces(ship.Ship):
 		self.all_ship_locations[ship] = ship.grid_loc_list
 	
 
-	#checks all ships for hit
+	#checks all ships for hit returns ship_object
 	def check_for_hit(self, bomb_location):
 		if self.carrier.is_hit(bomb_location):
 			return self.carrier
