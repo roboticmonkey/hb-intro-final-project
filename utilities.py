@@ -159,3 +159,17 @@ def request_placement_of_ship(ship_object, board_object, game_pieces_object, pla
 	#Print updated players ship board
 	player_object.print_my_ships_board()
 
+#Asks for and returns a valid str bomb location
+def get_bomb_str(player_board_object):
+	raw_data = raw_input("Enter coordinates for a bomb. ")
+	raw_data = quick_fix(raw_data)
+	# print raw_data
+
+	# Validate string bomb location
+	# If invalid ask for string bomb location again
+	raw_data = request_valid_location(raw_data, player_board_object)
+	# print raw_data 
+	return raw_data
+
+
+
