@@ -23,9 +23,13 @@ class Ship(object):
 
 	#checks to see if ship is sunk. Returns TRUE when sunk. 
 	def is_sunk(self):
+		# print "Im in is_sunk method"
+		# print self.boat
 		winning_lists = [["X","X","X","X","X"], ["X","X","X","X"], ["X","X","X"], ["X","X"]]
 		for i in range(len(winning_lists)):
+			# print "winning list", winning_lists[i]
 			if (self.boat == winning_lists[i]):
+				# print "in if statement. sending true"
 				return True
 							
 		return False
@@ -43,11 +47,11 @@ class Ship(object):
 		
 
 	#changes boat list to reflect where a bomb hit it. 
-	def record_ship_hit(self, bomb_location):
+	def record_ship_hit(self, bomb_location, bomb):
 		for i in range(len(self.grid_loc_list)):
 			if (bomb_location == self.grid_loc_list[i]):
-				self.boat[i] = "X"
-				print self.ship_name
+				self.boat[i] = bomb
+				return self.ship_name
 
 
 	#adds ship start location
@@ -58,7 +62,7 @@ class Ship(object):
 	def ship_location_end(self, end_location):
 		self.end_location = end_location
 
-
+	#create grid start location
 	def create_grid_start_loc(self, board_object):
 		self.grid_loc_start = [
 			board_object.convert_loc_letter_index(self.start_location),
