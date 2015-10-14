@@ -1,3 +1,7 @@
+import board
+
+test_board = board.Board()
+
 class Ship(object):
 	"""Base Class for ships. Takes size of ship in INT and the ship_name of ship in STRING.
 	Holds attributes start_location and end_location which are two character STRINGS.
@@ -81,33 +85,43 @@ class Ship(object):
 			return False 
 
 	#creates list for grid placement
-	def create_grid_loc_list(self, grid):
+	#def create_grid_loc_list(self, grid):
+	def create_grid_loc_list(self):
 		# print "inside create grid loc list"
 		# print self.ship_name
-		self.create_grid_start_loc(grid)
+		#self.create_grid_start_loc(grid)
 		# print "grid loc start:", self.grid_loc_start
-		self.create_grid_end_loc(grid)
+		#self.create_grid_end_loc(grid)
 		# print "grid loc end:", self.grid_loc_end
+		if(self.grid_loc_start != [] and self.grid_loc_end != []):
+			#return False
 
-	 	if (self.is_horizontal()):
-	 		# print "inside is_horizontal if statement"
-	 		i = 0
-	 		while i < self.size:
-				temp = [self.grid_loc_start[0], self.grid_loc_start[1]+i]
-				self.grid_loc_list.append(temp)
-				i += 1
-			return True
-		elif (self.is_vertical()):
-			# print "inside vertical if statement"
-			i = 0
-			while i < self.size:
-				temp = [self.grid_loc_start[0] +i,self.grid_loc_start[1]]
-				self.grid_loc_list.append(temp)
-				i += 1
+		 	if (self.is_horizontal()):
+		 		# print "inside is_horizontal if statement"
+		 		i = 0
+		 		while i < self.size:
+					temp = [self.grid_loc_start[0], self.grid_loc_start[1]+i]
+					self.grid_loc_list.append(temp)
+					i += 1
+				#return True
+			elif (self.is_vertical()):
+				# print "inside vertical if statement"
+				i = 0
+				while i < self.size:
+					temp = [self.grid_loc_start[0] +i,self.grid_loc_start[1]]
+					self.grid_loc_list.append(temp)
+					i += 1
 			# print "grid location list from inside method:", self.grid_loc_list
-			return True
-		else:
+			#return True
+		#else:
+			#return False
+
+	#check if grid location list is not empty
+	def location_list_full(self):
+		if (self.grid_loc_list == []):
 			return False
+		else:
+			return True
 
 	#Erase start locations
 	def erase_start_locations(self):
@@ -131,7 +145,13 @@ class Ship(object):
 
 
 
-# sub = Ship(3, "Submarine")
+# sub = Ship("Submarine", 3)
+# sub.grid_loc_start = [4,1]
+# # print sub.grid_loc_start
+# sub.grid_loc_end = [6,1]
+# sub.create_grid_loc_list()
+# print sub.grid_loc_list
+# print sub.location_list_full()
 # sub.ship_location_start("D1")
 # sub.ship_location_end("F1")
 # print sub.start_location, sub.end_location
