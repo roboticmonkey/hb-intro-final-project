@@ -45,8 +45,17 @@ def validate_user_input(user_input, board):
 		return True
 	else:
 		return False
-		
-		
+
+#Ask for and return valid location string
+def request_valid_location(raw_data, board):
+	
+	while(not validate_user_input(raw_data, board)):
+		raw_data = raw_input("Please give coordinates in format 'A1'. ")
+		raw_data = quick_fix(raw_data)
+	
+	return raw_data
+
+# print request_start_location(test_grid)
 
 # name ="  fred  "
 # name2 = "fart knuckles"
