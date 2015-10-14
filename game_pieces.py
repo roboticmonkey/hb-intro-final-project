@@ -7,22 +7,26 @@ class Game_Pieces(ship.Ship):
 	Methond all_sunk checks to see if all ships have been sunk.
 	 """
 	
-	def __init__(self, player_name, ship_tuple):
+	def __init__(self, player_name):
 		#super(Game_Pieces, self).__init__()
-		self.player_name = player_name
-		self.carrier = ship.Ship(ship_tuple[0][0], ship_tuple[0][1])
-		self.battleship = ship.Ship(ship_tuple[1][0],ship_tuple[1][1])
-		self.cruiser = ship.Ship(ship_tuple[2][0], ship_tuple[2][1])
-		self.sub = ship.Ship(ship_tuple[3][0],ship_tuple[3][1])
-		self.destroyer = ship.Ship(ship_tuple[4][0],ship_tuple[4][1])
+	
 		
-		# self.carrier = ship.Ship("Carrier", 5)
-		# self.battleship = ship.Ship("Battleship",4)
-		# self.cruiser = ship.Ship("Cruiser", 3)
-		# self.sub = ship.Ship("Submarine",3)
-		# self.destroyer = ship.Ship("Destroyer",2)
+		self.carrier = ship.Ship("Carrier", 5)
+		self.battleship = ship.Ship("Battleship",4)
+		self.cruiser = ship.Ship("Cruiser", 3)
+		self.sub = ship.Ship("Submarine",3)
+		self.destroyer = ship.Ship("Destroyer",2)
 		self.fleet_sunk = False
-		self.all_ships = {}
+		self.all_ship_locations = {}
+		self.all_ships_dictionary = {}
+
+	#Put all ship opjects in a list
+	def add_ships_dictionary(self):
+		self.all_ships_dictionary[self.carrier] = self.carrier.size
+		self.all_ships_dictionary[self.battleship] = self.battleship.size
+		self.all_ships_dictionary[self.cruiser] = self.cruiser.size
+		self.all_ships_dictionary[self.sub] = self.sub.size
+		self.all_ships_dictionary[self.destroyer] = self.destroyer.size
 
 	#changes Game_Pieces attribute fleet_sunk to True
 	def all_sunk(self):
@@ -35,32 +39,8 @@ class Game_Pieces(ship.Ship):
 	#create grid location for all pieces
 	def add_ship_loc_dict(self, ship):
 		#carrier
-		self.all_ships[ship] = ship.grid_loc_list
-		
-
-		# #battleship
-		# self.battleship.create_grid_start_loc(grid)
-		# self.battleship.create_grid_end_loc(grid)
-		# self.battleship.create_grid_loc_list()
-		# self.all_ships[self.battleship.ship_name] = self.battleship.grid_loc_list
-
-		# #cruiser
-		# self.cruiser.create_grid_start_loc(grid)
-		# self.cruiser.create_grid_end_loc(grid)
-		# self.cruiser.create_grid_loc_list()
-		# self.all_ships[self.cruiser.ship_name] = self.cruiser.grid_loc_list
-
-		# #submarine
-		# self.sub.create_grid_start_loc(grid)
-		# self.sub.create_grid_end_loc(grid)
-		# self.sub.create_grid_loc_list()
-		# self.all_ships[self.sub.ship_name] = self.sub.grid_loc_list
-
-		# #destroyer
-		# self.destroyer.create_grid_start_loc(grid)
-		# self.destroyer.create_grid_end_loc(grid)
-		# self.destroyer.create_grid_loc_list()
-		# self.all_ships[self.destroyer.ship_name] = self.destroyer.grid_loc_list
+		self.all_ship_locations[ship] = ship.grid_loc_list
+	
 
 	#checks all ships for hit
 	def check_for_hit(self, bomb_location):
@@ -79,25 +59,25 @@ class Game_Pieces(ship.Ship):
 
 	#check to see if new ship has same location as already placed ships
 	def is_overlap(self, ship):
-		print "got into is_overlap method"
-		for key, value in self.all_ships.items():
-			print key.ship_name, value
+		# print "got into is_overlap method"
+		for key, value in self.all_ship_locations.items():
+			# print key.ship_name, value
 			for i in range(len(value)):
-				print "i:", i
-				print ship.ship_name, ship.grid_loc_list
+				# print "loop", i
+				# print ship.ship_name, ship.grid_loc_list
 				for n in range(len(ship.grid_loc_list)):
-					print "n:", n, "i:", i
-					print ship.ship_name, ship.grid_loc_list[n], key.ship_name, value[i]
+					# print "n:", n, "i:", i
+					# print ship.ship_name, ship.grid_loc_list[n], key.ship_name, value[i]
 					if (ship.grid_loc_list[n] == value[i]):
-						print ship.ship_name, ship.grid_loc_list[n]
-						print "matches:", key.ship_name, value[i], "at index:", i
+						# print ship.ship_name, ship.grid_loc_list[n]
+						# print "matches:", key.ship_name, value[i], "at index:", i
 						return True
-					
+		# print "no matches"		
 		return False
 
 	#check if ship already at location
 	def is_taken(self, ship_location):
-		for key, value in self.all_ships.items():
+		for key, value in self.all_ship_locations.items():
 			# print key, value, ship_location
 			for i in range(len(value)):
 				if (value[i] == ship_location):
@@ -119,6 +99,10 @@ class Game_Pieces(ship.Ship):
 
 
 # computer = Game_Pieces("Computer")
+# computer.add_ships_dictionary()
+# print computer.all_ships_dictionary
+# for key, value in computer.all_ships_dictionary.items():
+# 	print key.ship_name, value
 # print computer.sub.ship_name
 # print computer.sub.size
 # print computer.sub.boat
