@@ -58,3 +58,57 @@ class Player(object):
 		self.bomb_str = " "
 		self.bomb_grid = []
 
+	#Handles bombs that miss
+	def handle_bomb_miss(self, enemy_player_object):
+		# Save bomb location to bomb_list
+		self.add_bombs()
+		# print self.bombs_placed
+		
+		# Update player enemy ship board with MISS
+		self.enemy_ships_board.update_one_cell(self.bomb_grid, self.bomb[0])
+		
+		# Update opponents  my ship board with MISS
+		enemy_player_object.my_ships_board.update_one_cell(self.bomb_grid, self.bomb[0])
+		
+		# Print MSG bomb missed
+		print self.bomb_str, "bomb missed."
+
+		#DELETE bomb variables
+		self.erase_bomb_locations()
+
+	#Handles bombs that hit
+	def handle_bomb_hit(self, enemy_player_object):
+		ship_hit = enemy_player_object.ships.check_for_hit(self.bomb_grid)
+		
+		# Save bomb location to bomb_list
+		self.add_bombs()
+		
+		# Update enemy hit ship with HIT at bomb location
+		ship_hit.record_ship_hit(self.bomb_grid, self.bomb[1])
+		
+		# Print MSG that a ship was HIT
+		print "You hit one of %s's ships." %(enemy_player_object.name)
+		
+		# 	Update player enemy ship board with HIT
+		self.enemy_ships_board.update_one_cell(self.bomb_grid, self.bomb[1])
+		
+		# Update opponents  my ship board with HIT
+		enemy_player_object.my_ships_board.update_grid_game_pieces(enemy_player_object.ships)
+
+	#Prints out MSG when game ends
+	def game_over_msg(self, enemy_player_object):
+		# Print MSG congrats MSG to winner
+		print "Congratulations %s," %(self.name)
+		# Print MSG the all of opponents ships are sunk
+		print "All of %s's ships have been sunk!" %(enemy_player_object.name)
+
+		# Print MSG that game is over
+		print "GAME OVER!"
+
+	#Prints out MSG when a players ship has sunk. Self is the owner of the sunken ship
+	def msg_ship_sunk(self, hit_ship_object ):
+		# Print MSG that opponents ship sunk, Give name of sunk ship
+		print "%s's %s ship sunk." %(self.name, hit_ship_object.ship_name)
+		
+		
+
