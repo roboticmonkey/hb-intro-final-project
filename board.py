@@ -23,8 +23,8 @@ class Board(object):
 		for row in matrix_grid:
 			#print row
 			#print len(item)
-			print " %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s |" % tuple(row)
-			print "-------------------------------------------------------"
+			print "     %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s |" % tuple(row)
+			print "    -------------------------------------------------------"
 
 
 	#edit one cell in grid
@@ -63,7 +63,11 @@ class Board(object):
 	def record_miss(self, bomb_location):
 		self.grid[bomb_location[0]][bomb_location[1]] = "O"
 
-
+	#converts grid location to string location. Returns a string. ex. 'A1'
+	def convert_grid_location_str(self, grid_location):
+		str_letter = self.capital_letters[grid_location[0]]
+		temp_str = str_letter + str(grid_location[1])
+		return temp_str
 
 
 # print "Player Ship Grid"
