@@ -30,9 +30,10 @@ class Ship(object):
 			# print "winning list", winning_lists[i]
 			if (self.boat == winning_lists[i]):
 				# print "in if statement. sending true"
-				return True
+				self.sunk = True
+				#return True
 							
-		return False
+		#return False
 
 	
 
