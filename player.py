@@ -21,12 +21,13 @@ class Player(object):
 
 	# Prints my_ships_board
 	def print_my_ships_board(self):
-		print "My Ships"
+		print "\n   ",
+		print  "%s's Ships\n" %(self.name)
 		self.my_ships_board.draw_grid_loop(self.my_ships_board.grid)
 
 	# Prints enemy ships board
 	def print_enemy_ships_board(self):
-		print "Enemy Ships"
+		# print "Enemy Ships"
 		self.enemy_ships_board.draw_grid_loop(self.enemy_ships_board.grid)
 
 	#Creates bomb grid location
@@ -86,8 +87,8 @@ class Player(object):
 		# Update enemy hit ship with HIT at bomb location
 		ship_hit.record_ship_hit(self.bomb_grid, self.bomb[1])
 		
-		# Print MSG that a ship was HIT
-		print "You hit one of %s's ships." %(enemy_player_object.name)
+		# # Print MSG that a ship was HIT
+		# print "You hit one of %s's ships." %(enemy_player_object.name)
 		
 		# 	Update player enemy ship board with HIT
 		self.enemy_ships_board.update_one_cell(self.bomb_grid, self.bomb[1])
@@ -109,6 +110,36 @@ class Player(object):
 	def msg_ship_sunk(self, hit_ship_object ):
 		# Print MSG that opponents ship sunk, Give name of sunk ship
 		print "%s's %s ship sunk." %(self.name, hit_ship_object.ship_name)
+
+	# Print Player boards, my_ship_board and enemy_board
+	def print_player_boards(self):
+		#Print my ship board
+		print  "%s's My Ships\n" %(self.name)
+		self.print_my_ships_board()
+		#Print updated enemy ship board
+		print  "%s's Enemy Ships\n" %(self.name)
+		# print self.name, ""
+		self.print_enemy_ships_board()
+
+	#draws 2 grids one row at a time.
+	def print_both_boards(self):
+		
+
+		print "\n   ",
+		print  "%s's Ships" %(self.name),
+		print "                                             ",
+		print  "Enemy's Ships\n"
+		for i in range(len(self.my_ships_board.grid)):
+			
+			print "     %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s |" % tuple(self.my_ships_board.grid[i]),
+			
+			print "     %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s | %-2s |" % tuple(self.enemy_ships_board.grid[i])
+			print "    -------------------------------------------------------",
+			
+			print "    -------------------------------------------------------"
+
+
+
 		
 		
 
