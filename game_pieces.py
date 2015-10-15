@@ -10,7 +10,7 @@ class Game_Pieces(ship.Ship):
 	def __init__(self, player_name):
 		#super(Game_Pieces, self).__init__()
 	
-		
+		self.player_name = player_name
 		self.carrier = ship.Ship("Carrier", 5)
 		self.battleship = ship.Ship("Battleship",4)
 		self.cruiser = ship.Ship("Cruiser", 3)
@@ -31,10 +31,13 @@ class Game_Pieces(ship.Ship):
 	#changes Game_Pieces attribute fleet_sunk to True
 	def all_sunk(self):
 		# print "in games pieces all_sunk"
+		# print self.player_name
 		if (self.carrier.sunk == True and (self.battleship.sunk == True and
 			 (self.cruiser.sunk == True and (self.sub.sunk == True and 
 			 	self.destroyer.sunk == True)))):
+			# print self.player_name, self.fleet_sunk 
 			self.fleet_sunk = True
+			# print self.player_name, self.fleet_sunk
 		
 
 	#create grid location for all pieces
