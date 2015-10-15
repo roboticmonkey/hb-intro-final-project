@@ -1,22 +1,20 @@
 import board
+import random
 
+random.seed()
 
 test_grid = board.Board()
 
 #check for valid number range. returns True of False
 def valid_number(user_input):
-
 	if (len(user_input) == 2):
-		
 		if (user_input[1] == "0"):
 			return False
 		else:
 			return True
-
 	if (len(user_input) !=2):
 		if (len(user_input) == 3):
 			number = user_input[1]+user_input[2]
-
 			if (number == "10"):
 				return True
 			else:
@@ -31,6 +29,13 @@ def quick_fix(user_input):
 	user_input = user_input.upper()
 
 	return user_input
+
+#creates grid location returns a list
+def generates_grid_location():
+	num = random.randrange(1, 11)
+	num2 = random.randrange(1, 11)
+	num_list = [num, num2]
+	return num_list
 
 #check for valid letter range return True or False
 def valid_letter(user_input, board):
@@ -159,7 +164,7 @@ def request_placement_of_ship(ship_object, board_object, game_pieces_object, pla
 	#Print updated players ship board
 	player_object.print_my_ships_board()
 
-#Asks for and returns a valid str bomb location
+#Asks user for and returns a valid str bomb location
 def get_bomb_str(player_board_object):
 	raw_data = raw_input("Enter coordinates for a bomb. ")
 	raw_data = quick_fix(raw_data)
@@ -171,5 +176,13 @@ def get_bomb_str(player_board_object):
 	# print raw_data 
 	return raw_data
 
+#Checks for no winner
+def no_winner(opponent_player_object):
+	# Check if all of opponents ships sunk
+	opponent_player_object.ships.all_sunk()
+	if (opponent_player_object.ships.fleet_sunk):
+		return False
+	else:
+		return True
 
 
