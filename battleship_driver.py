@@ -1,180 +1,217 @@
 import board
 import ship
 import game_pieces
+import utilities
+import player
+import random
+
+random.seed()
 
 
-player_ship_grid = board.Board()
-player_bomb_grid = board.Board()
-print "Player Ship Grid"
-player_ship_grid.draw_grid_loop(player_ship_grid.grid)
-print "Player Bomb Grid"
-player_bomb_grid.draw_grid_loop(player_bomb_grid.grid)
+print "Welcome to Battleship!"
+#**************************
+#GAME SETUP
 
-computer = game_pieces.Game_Pieces("Computer")
+#***************************
+# #Create human player_object
+human = player.Player("aiden")
 
-#testing how to place ships and keep track of location
+#Create computer player_object
+computer = player.Player("computer")
+# # Create players object
+# players = [human, computer]
+turns_taken = 2
 
-print "testing ship placement"
-#hardcoding ship locations
-computer.carrier.start_location ="D8"
-computer.carrier.end_location = "H8"
-computer.carrier.create_grid_start_loc(player_ship_grid)
-computer.carrier.create_grid_end_loc(player_ship_grid)
+#Hardcode computer ship locations
+computer.ships.carrier.grid_loc_start = [1,3]
+computer.ships.carrier.grid_loc_end = [5,3]
+computer.ships.carrier.create_grid_loc_list()
+computer.ships.add_ship_loc_dict(computer.ships.carrier)
+computer.my_ships_board.update_grid_ship(computer.ships.carrier)
 
-computer.battleship.start_location = "I3"
-computer.battleship.end_location ="I6"
-computer.battleship.create_grid_start_loc(player_ship_grid)
-computer.battleship.create_grid_end_loc(player_ship_grid)
+computer.ships.battleship.grid_loc_start = [3,5]
+computer.ships.battleship.grid_loc_end = [3,8]
+computer.ships.battleship.create_grid_loc_list()
+computer.ships.add_ship_loc_dict(computer.ships.battleship)
+computer.my_ships_board.update_grid_ship(computer.ships.battleship)
+
+computer.ships.cruiser.grid_loc_start = [7,8]
+computer.ships.cruiser.grid_loc_end = [9,8]
+computer.ships.cruiser.create_grid_loc_list()
+computer.ships.add_ship_loc_dict(computer.ships.cruiser)
+computer.my_ships_board.update_grid_ship(computer.ships.cruiser)
+
+computer.ships.sub.grid_loc_start = [8,2]
+computer.ships.sub.grid_loc_end = [8,4]
+computer.ships.sub.create_grid_loc_list()
+computer.ships.add_ship_loc_dict(computer.ships.sub)
+computer.my_ships_board.update_grid_ship(computer.ships.sub)
+
+computer.ships.destroyer.grid_loc_start = [5,9]
+computer.ships.destroyer.grid_loc_end = [5,10]
+computer.ships.destroyer.create_grid_loc_list()
+computer.ships.add_ship_loc_dict(computer.ships.destroyer)
+computer.my_ships_board.update_grid_ship(computer.ships.destroyer)
+
+# #Hardcode human ship locations
+# human.ships.carrier.grid_loc_start = [3,4]
+# human.ships.carrier.grid_loc_end = [3,8]
+# human.ships.carrier.create_grid_loc_list()
+# human.ships.add_ship_loc_dict(human.ships.carrier)
+# human.my_ships_board.update_grid_ship(human.ships.carrier)
+
+# human.ships.battleship.grid_loc_start = [6,3]
+# human.ships.battleship.grid_loc_end = [9,3]
+# human.ships.battleship.create_grid_loc_list()
+# human.ships.add_ship_loc_dict(human.ships.battleship)
+# human.my_ships_board.update_grid_ship(human.ships.battleship)
+
+# human.ships.cruiser.grid_loc_start = [5,8]
+# human.ships.cruiser.grid_loc_end = [5,10]
+# human.ships.cruiser.create_grid_loc_list()
+# human.ships.add_ship_loc_dict(human.ships.cruiser)
+# human.my_ships_board.update_grid_ship(human.ships.cruiser)
+
+# human.ships.sub.grid_loc_start = [8,7]
+# human.ships.sub.grid_loc_end = [10,7]
+# human.ships.sub.create_grid_loc_list()
+# human.ships.add_ship_loc_dict(human.ships.sub)
+# human.my_ships_board.update_grid_ship(human.ships.sub)
+
+# human.ships.destroyer.grid_loc_start = [2,3]
+# human.ships.destroyer.grid_loc_end = [2,4]
+# human.ships.destroyer.create_grid_loc_list()
+# human.ships.add_ship_loc_dict(human.ships.destroyer)
+# human.my_ships_board.update_grid_ship(human.ships.destroyer)
+
+# # Print Human player boards
+# players[0].print_player_boards()
+
+# ******************************
+#  HUMAN PLAYER SHIP PLACEMENT
+# ******************************
+
+#Game set up. Get player 1 name and validate input
+raw_data = raw_input("Player 1 please enter your name. ")
+raw_data = utilities.quick_fix(raw_data)
+
+#Validate name
+while (not raw_data.isalpha()):
+	raw_data = raw_input("Please enter a valid name. ")
+	raw_data = utilities.quick_fix(raw_data)
+
+#Create human object
+human = player.Player(raw_data)
+print "Hello,", human.name
+print "You have 5 ships at varying lengths."
+print "They are:"
+
+#List all the ships for the player
+# human.list_ship_name_and_sizes()
+for key, value in human.ships.all_ships_dictionary.items():
+	print key.ship_name, "with a length of", value
+
+# Create players object
+players = [human, computer]
+#Print empty ships board
+players[0].print_both_boards()
+
+#Code to ask user to place their ships
+utilities.request_placement_of_ship(players[0].ships.carrier, players[0].my_ships_board, players[0].ships, players[0])
+utilities.request_placement_of_ship(players[0].ships.battleship, players[0].my_ships_board, players[0].ships, players[0])
+utilities.request_placement_of_ship(players[0].ships.cruiser, players[0].my_ships_board, players[0].ships, players[0])
+utilities.request_placement_of_ship(players[0].ships.sub, players[0].my_ships_board, players[0].ships, players[0])
+utilities.request_placement_of_ship(players[0].ships.destroyer, players[0].my_ships_board, players[0].ships, players[0])
 
 
-computer.cruiser.start_location = "A7"
-computer.cruiser.end_location = "A9"
-computer.cruiser.create_grid_start_loc(player_ship_grid)
-computer.cruiser.create_grid_end_loc(player_ship_grid)
-
-computer.sub.start_location = "B1"
-computer.sub.end_location = "B3"
-computer.sub.create_grid_start_loc(player_ship_grid)
-computer.sub.create_grid_end_loc(player_ship_grid)
-
-computer.destroyer.start_location ="H4"
-computer.destroyer.end_location = "I4"
-computer.destroyer.create_grid_start_loc(player_ship_grid)
-computer.destroyer.create_grid_end_loc(player_ship_grid)
-#creating the grid locations
 
 
 
-if (computer.carrier.create_grid_loc_list(player_ship_grid) == True):
-	# print "list made man"
-	computer.add_ship_loc_dict(computer.carrier)
-	# print computer.all_ships
-else:
-	print "whoops"
+# *******************************
+# 	MAIN GAME LOOP
+# *******************************
 
 
-computer.battleship.create_grid_loc_list(player_ship_grid)
-computer.add_ship_loc_dict(computer.battleship)
-computer.cruiser.create_grid_loc_list(player_ship_grid)
-computer.add_ship_loc_dict(computer.cruiser)
-computer.sub.create_grid_loc_list(player_ship_grid)
+while (utilities.no_winner(players[(turns_taken%2)])):
+	# First time player picks each turn
+	# Ask for string bomb location
+	print "%s's turn: " %(players[turns_taken%2].name)
+	print "Use letters A-J and numbers 1-10 for coordinates in the format 'A1'."
+	print "Place a bomb."
 
-print computer.sub.ship_name, "found overlap:", computer.is_overlap(computer.sub)
+	if (players[turns_taken%2] == players[1]):
+		print "computers special place. :) "
+		temp_list = utilities.generates_grid_location()
+		print temp_list,
+		print players[1].my_ships_board.convert_grid_location_str(temp_list)
 
-computer.add_ship_loc_dict(computer.sub)
-computer.destroyer.create_grid_loc_list(player_ship_grid)
+	#save valid bomb location str
+	players[turns_taken%2].bomb_str = utilities.get_bomb_str(players[turns_taken%2].my_ships_board)
 
-# for key, value in computer.all_ships.items():
-# 	# print key, value
-# 	for i in range(len(value)):
-# 		for n in range(len(computer.destroyer.grid_loc_list)):
-# 			print "n:", n, "i:", i
-# 			print "destroyer:",computer.destroyer.grid_loc_list[n], key, value[i]
-# 			if (computer.destroyer.grid_loc_list[n] == value[i]):
-# 				print "destroyer:", computer.destroyer.grid_loc_list[n]
-# 				print "matches:", key.ship_name, value[i], "at index:", i
+	# Convert string location to a grid location
+	players[turns_taken%2].create_bomb_grid(players[turns_taken%2].enemy_ships_board)
 
-print computer.destroyer.ship_name, "found overlap:", computer.is_overlap(computer.destroyer)
+	# While bomb location is in bomb_list
+	while (players[turns_taken%2].in_bombs_placed()):
+	# 	While TRUE, 
+		# Print ERROR MSG: already used pick new location
+		print "Already bombed that spot."
+		print "Pick a new location."
+		
+		# Get new bomb location
+		# Save valid bomb location str
+		players[turns_taken%2].bomb_str = utilities.get_bomb_str(players[turns_taken%2].my_ships_board)
 
-computer.add_ship_loc_dict(computer.destroyer)
-# print computer.all_ships
+		# Convert string location to a grid location
+		players[turns_taken%2].create_bomb_grid(players[turns_taken%2].enemy_ships_board)
+	
+	# NOT in bomb_list,
+	# Check if opponents ship @ location
 
+	if(players[(turns_taken%2)-1].ships.check_for_hit(players[turns_taken%2].bomb_grid) == False):
+	# If MISS
 
+		# Handles all steps for when bomb misses ships
+		players[turns_taken%2].handle_bomb_miss(players[(turns_taken%2)-1])
+		# Print Human player boards
+		# players[0].print_player_boards()
+		players[0].print_both_boards()
+		# Print computer boards
+		# players[1].print_player_boards()
+		
+		# NEXT PLAYERS TURN
+		turns_taken += 1
+		
+	else:
+	# If HIT
+		# Save ship object that was hit
+		ship_hit = players[(turns_taken%2)-1].ships.check_for_hit(players[turns_taken%2].bomb_grid)
+		
+		# Handles all steps for when bomb hits a ship
+		players[turns_taken%2].handle_bomb_hit(players[(turns_taken%2)-1])
 
+		# Print Human player boards
+		# players[0].print_player_boards()
+		players[0].print_both_boards()
 
-#updateing the ship board
-player_ship_grid.update_grid_ship(computer.carrier)
-player_ship_grid.update_grid_ship(computer.battleship)
-player_ship_grid.update_grid_ship(computer.cruiser)
-player_ship_grid.update_grid_ship(computer.sub)
-player_ship_grid.update_grid_ship(computer.destroyer)
+		# Print MSG that a ship was HIT
+		print "You hit one of %s's ships." %(players[(turns_taken%2)-1].name)
+		# Print computers boards
+		# players[1].print_player_boards()	
 
-# #printing an updated board
-print "Player Ship Grid"
-player_ship_grid.draw_grid_loop(player_ship_grid.grid)
-
-# #working out finding bombs in ships
-# bomb = [6,8]
-# print "bomb:", bomb
-
-# # def test_funct (bomb, game_pieces):
-# # 	for key, value in game_pieces.all_ships.items():
-# # 		#print key, value
-# # 		for i in range(len(value)):
-# # 			if (bomb == value[i]):
-# # 				print "ship hit:", key
-# # 				print "bomb found index: ", i
-# # 				print key.ship_name
-# # 				return key, i
+		ship_hit.is_sunk()
+		
+		# Check if opponents ship sunk
+		if(ship_hit.sunk):
+			# Ship sunk
+			# Print MSG that opponents ship sunk, Give name of sunk ship
+			players[(turns_taken%2)-1].msg_ship_sunk(ship_hit)
 			
-# # test_var = test_funct(bomb, computer)
-
-# # print test_var
-# # print test_var[0].boat
-# # print test_var[0].boat[test_var[1]]
-# # test_var[0].boat[test_var[1]] = "X"
-# # print test_var[0].boat[test_var[1]]
-# # print test_var[0].boat
-
-# # print computer.carrier.boat
-
-# # player_ship_grid.update_grid_ship(computer.carrier)
-
-# # print "Player Ship Grid"
-# # player_ship_grid.draw_grid_loop(player_ship_grid.grid)
-
-# bomb2 = [5,4]
-# print "bomb2:", bomb2
-# bomb3 = [1,4]
-# print "bomb3:", bomb3
-
- 
-# # checking bomb for hit and update
-# if (computer.check_for_hit(bomb) != False):
-# 	computer.check_for_hit(bomb).record_ship_hit(bomb)
-# else:
-# 	player_ship_grid.grid[bomb[0]][bomb[1]] = "O"
-# 	print "miss"
-
-# if (computer.check_for_hit(bomb2) != False):
-# 	computer.check_for_hit(bomb2).record_ship_hit(bomb2)
-# else:
-# 	player_ship_grid.grid[bomb2[0]][bomb2[1]] = "O"
-# 	print "miss"
-
-# if (computer.check_for_hit(bomb3) != False):
-# 	computer.check_for_hit(bomb3).record_ship_hit(bomb3)
-# else:
-# 	player_ship_grid.record_miss(bomb3)
-# 	print "miss"
-
-
-
-# player_ship_grid.update_grid_game_pieces(computer)
-
-# print "Player Ship Grid"
-# player_ship_grid.draw_grid_loop(player_ship_grid.grid)
-
-# computer.destroyer.boat = ["X", "X"]
-# print computer.destroyer.boat
-# print computer.destroyer.is_sunk()
-# print "sub sunk:", computer.sub.is_sunk()
-
-
-
-
-
-
-
-
-# print computer.sub.boat
-# computer.sub.boat[0]= "X" 
-# player_ship_grid.grid[1][1] = "X"
-# print computer.sub.boat
-
-# print "Player Ship Grid"
-# player_ship_grid.draw_grid_loop(player_ship_grid.grid)
-
-
-
-
+			# Check if all of opponents ships sunk
+			players[(turns_taken%2)-1].ships.all_sunk()
+			
+		# NEXT PLAYERS TURN		
+		turns_taken += 1	
+			
+if(not utilities.no_winner(players[(turns_taken%2)])):
+	players[(turns_taken%2)-1].game_over_msg(players[(turns_taken%2)])
