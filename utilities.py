@@ -37,6 +37,7 @@ def generates_grid_location():
 	num_list = [num, num2]
 	return num_list
 
+
 #check for valid letter range return True or False
 def valid_letter(user_input, board):
 	if (not user_input[0] in board.capital_letters):
@@ -60,6 +61,28 @@ def request_valid_location(raw_data, board):
 	
 	return raw_data
 
+#Asks user for and returns a valid str bomb location
+def get_bomb_str(player_board_object):
+	raw_data = raw_input("Enter coordinates for a bomb. ")
+	raw_data = quick_fix(raw_data)
+	# print raw_data
+
+	# Validate string bomb location
+	# If invalid ask for string bomb location again
+	raw_data = request_valid_location(raw_data, player_board_object)
+	# print raw_data 
+	return raw_data
+
+#Checks for no winner
+def no_winner(opponent_player_object):
+	# Check if all of opponents ships sunk
+	opponent_player_object.ships.all_sunk()
+	if (opponent_player_object.ships.fleet_sunk):
+		return False
+	else:
+		return True
+
+#requesting ship placement for human
 def request_placement_of_ship(ship_object, board_object, game_pieces_object, player_object):
 	while (ship_object.location_list_full() == False):
 		#Grid location list is empty. 
@@ -163,26 +186,5 @@ def request_placement_of_ship(ship_object, board_object, game_pieces_object, pla
 
 	#Print updated players ship board
 	player_object.print_my_ships_board()
-
-#Asks user for and returns a valid str bomb location
-def get_bomb_str(player_board_object):
-	raw_data = raw_input("Enter coordinates for a bomb. ")
-	raw_data = quick_fix(raw_data)
-	# print raw_data
-
-	# Validate string bomb location
-	# If invalid ask for string bomb location again
-	raw_data = request_valid_location(raw_data, player_board_object)
-	# print raw_data 
-	return raw_data
-
-#Checks for no winner
-def no_winner(opponent_player_object):
-	# Check if all of opponents ships sunk
-	opponent_player_object.ships.all_sunk()
-	if (opponent_player_object.ships.fleet_sunk):
-		return False
-	else:
-		return True
 
 

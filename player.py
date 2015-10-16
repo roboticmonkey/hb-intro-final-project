@@ -1,5 +1,7 @@
 import board
 import game_pieces
+import utilities
+
 
 class Player(object):
 
@@ -59,6 +61,13 @@ class Player(object):
 		self.bomb_str = " "
 		self.bomb_grid = []
 
+	# Save computer generated bomb location to bomb_grid and bomb_str
+	def save_comp_bomb_location(self):
+		self.bomb_grid = utilities.generates_grid_location()
+		# print players[1].bomb_grid,
+		self.bomb_str = self.my_ships_board.convert_grid_location_str(self.bomb_grid)
+		# print players[1].bomb_str
+
 	#Handles bombs that miss
 	def handle_bomb_miss(self, enemy_player_object):
 		# Save bomb location to bomb_list
@@ -74,8 +83,7 @@ class Player(object):
 		# Print MSG bomb missed
 		print self.bomb_str, "bomb missed."
 
-		#DELETE bomb variables
-		self.erase_bomb_locations()
+		
 
 	#Handles bombs that hit
 	def handle_bomb_hit(self, enemy_player_object):
@@ -87,14 +95,15 @@ class Player(object):
 		# Update enemy hit ship with HIT at bomb location
 		ship_hit.record_ship_hit(self.bomb_grid, self.bomb[1])
 		
-		# # Print MSG that a ship was HIT
-		# print "You hit one of %s's ships." %(enemy_player_object.name)
+		
 		
 		# 	Update player enemy ship board with HIT
 		self.enemy_ships_board.update_one_cell(self.bomb_grid, self.bomb[1])
 		
 		# Update opponents  my ship board with HIT
 		enemy_player_object.my_ships_board.update_grid_game_pieces(enemy_player_object.ships)
+		# Print MSG that a ship was HIT
+		print "\nOne of %s's ships was hit at location %s." %(enemy_player_object.name, self.bomb_str)
 
 	#Prints out MSG when game ends
 	def game_over_msg(self, enemy_player_object):
@@ -137,6 +146,7 @@ class Player(object):
 			print "    -------------------------------------------------------",
 			
 			print "    -------------------------------------------------------"
+		print " "
 
 
 
