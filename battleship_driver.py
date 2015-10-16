@@ -8,7 +8,7 @@ import random
 random.seed()
 
 
-print "Welcome to Battleship!"
+print "\n\nWelcome to Battleship!\n"
 #**************************
 #GAME SETUP
 
@@ -133,37 +133,52 @@ utilities.request_placement_of_ship(players[0].ships.destroyer, players[0].my_sh
 
 
 while (utilities.no_winner(players[(turns_taken%2)])):
+	# turns_taken += 1
+	# print turns_taken, "turns_taken"
 	# First time player picks each turn
 	# Ask for string bomb location
-	print "%s's turn: " %(players[turns_taken%2].name)
-	print "Use letters A-J and numbers 1-10 for coordinates in the format 'A1'."
-	print "Place a bomb."
-
+	print "%s's turn to place a bomb. " %(players[turns_taken%2].name)
+	
+	
+	#computer getting a bomb location
 	if (players[turns_taken%2] == players[1]):
-		print "computers special place. :) "
-		temp_list = utilities.generates_grid_location()
-		print temp_list,
-		print players[1].my_ships_board.convert_grid_location_str(temp_list)
-
-	#save valid bomb location str
-	players[turns_taken%2].bomb_str = utilities.get_bomb_str(players[turns_taken%2].my_ships_board)
-
-	# Convert string location to a grid location
-	players[turns_taken%2].create_bomb_grid(players[turns_taken%2].enemy_ships_board)
-
-	# While bomb location is in bomb_list
-	while (players[turns_taken%2].in_bombs_placed()):
-	# 	While TRUE, 
-		# Print ERROR MSG: already used pick new location
-		print "Already bombed that spot."
-		print "Pick a new location."
 		
-		# Get new bomb location
-		# Save valid bomb location str
-		players[turns_taken%2].bomb_str = utilities.get_bomb_str(players[turns_taken%2].my_ships_board)
+		raw_input("Hit 'ENTER' for the Computer to take it's turn. ")
 
+		players[1].save_comp_bomb_location()
+		# print players[1].bomb_grid, players[1].bomb_str
+
+		while(players[1].in_bombs_placed()):
+			players[1].erase_bomb_locations()
+			players[1].save_comp_bomb_location()
+
+		print "\n%s placed a bomb at location %s." %(players[1].name, players[1].bomb_str)
+
+
+	#human getting a bomb location
+	if (players[turns_taken%2] == players[0]):
+		print "Use letters A-J and numbers 1-10 for coordinates in the format 'A1'."
+		#save valid bomb location str
+		players[0].bomb_str = utilities.get_bomb_str(players[0].my_ships_board)
+		# print players[turns_taken%2].bomb_str
 		# Convert string location to a grid location
-		players[turns_taken%2].create_bomb_grid(players[turns_taken%2].enemy_ships_board)
+		players[0].create_bomb_grid(players[0].enemy_ships_board)
+
+		# While bomb location is in bomb_list
+		while (players[0].in_bombs_placed()):
+		# 	While TRUE, 
+			# Print ERROR MSG: already used pick new location
+			print "Already bombed that spot."
+			print "Pick a new location."
+			
+			# Get new bomb location
+			# Save valid bomb location str
+			players[0].bomb_str = utilities.get_bomb_str(players[0].my_ships_board)
+
+			# Convert string location to a grid location
+			players[0].create_bomb_grid(players[0].enemy_ships_board)
+	
+	# print players[(turns_taken%2)-1].name, "bomb at:", players[(turns_taken%2)-1].bomb_str
 	
 	# NOT in bomb_list,
 	# Check if opponents ship @ location
@@ -173,14 +188,15 @@ while (utilities.no_winner(players[(turns_taken%2)])):
 
 		# Handles all steps for when bomb misses ships
 		players[turns_taken%2].handle_bomb_miss(players[(turns_taken%2)-1])
-		# Print Human player boards
-		# players[0].print_player_boards()
+		# # Print Human player boards
 		players[0].print_both_boards()
+		
 		# Print computer boards
-		# players[1].print_player_boards()
+		#players[1].print_player_boards()
 		
 		# NEXT PLAYERS TURN
 		turns_taken += 1
+		# print turns_taken, "turns_taken after the miss"
 		
 	else:
 	# If HIT
@@ -191,13 +207,10 @@ while (utilities.no_winner(players[(turns_taken%2)])):
 		players[turns_taken%2].handle_bomb_hit(players[(turns_taken%2)-1])
 
 		# Print Human player boards
-		# players[0].print_player_boards()
-		players[0].print_both_boards()
+		# players[0].print_both_boards()
 
-		# Print MSG that a ship was HIT
-		print "You hit one of %s's ships." %(players[(turns_taken%2)-1].name)
-		# Print computers boards
-		# players[1].print_player_boards()	
+		# # Print computers boards
+		# # players[1].print_both_boards()	
 
 		ship_hit.is_sunk()
 		
@@ -210,8 +223,12 @@ while (utilities.no_winner(players[(turns_taken%2)])):
 			# Check if all of opponents ships sunk
 			players[(turns_taken%2)-1].ships.all_sunk()
 			
-		# NEXT PLAYERS TURN		
-		turns_taken += 1	
+		#DELETE bomb variables
+		players[(turns_taken%2)-1].erase_bomb_locations()
+		
+		# Print Human player boards
+		players[0].print_both_boards()
+		turns_taken += 1
 			
 if(not utilities.no_winner(players[(turns_taken%2)])):
 	players[(turns_taken%2)-1].game_over_msg(players[(turns_taken%2)])
